@@ -30,6 +30,7 @@ class App extends Component {
     });
 
     var largeInfoWindow = new window.google.maps.InfoWindow();
+    var bounds = new window.google.maps.LatLngBounds();
 
     this.setState({
       map:map,
@@ -47,7 +48,10 @@ class App extends Component {
       marker.addListener("click", function() {
         self.populateInfoWindow(marker,largeInfoWindow);
       });
+
+      bounds.extend(marker.position)
     });
+    map.fitBounds(bounds);
 
   }
 
