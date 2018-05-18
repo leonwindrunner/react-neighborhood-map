@@ -2,8 +2,19 @@ import React, { Component } from 'react';
 import './App.css';
 import scriptLoader from 'react-async-script-loader';
 import { mapStyles } from './mapStyles.js';
+import { restaurants } from './restaurants.js';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      map: "",
+      locations: restaurants
+    };
+
+    this.initMap = this.initMap.bind(this);
+  }
+
   componentDidMount() {
     window.initMap = this.initMap;
   }
@@ -14,6 +25,20 @@ class App extends Component {
       zoom: 13,
       styles:mapStyles
     });
+
+    this.setState({
+      map:map
+    });
+
+    this.state.locations.map((location) => {
+      var marker = new window.google.maps.Marker({
+        position: location.location,
+        map: map,
+        title:location.name,
+        animation: window.google.maps.Animation.DROP
+      });
+    });
+
   }
 
   render() {
