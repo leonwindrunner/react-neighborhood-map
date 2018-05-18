@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import scriptLoader from 'react-async-script-loader';
-
+import { mapStyles } from './mapStyles.js';
 
 class App extends Component {
   componentDidMount() {
@@ -11,7 +11,8 @@ class App extends Component {
   initMap() {
     var map = new window.google.maps.Map(document.getElementById("map"), {
       center: {lat: 33.993991, lng: -117.901344},
-      zoom: 13
+      zoom: 13,
+      styles:mapStyles
     });
   }
 
