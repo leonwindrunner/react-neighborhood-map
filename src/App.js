@@ -9,10 +9,12 @@ class App extends Component {
     super(props);
     this.state = {
       map: "",
-      locations: restaurants
+      locations: restaurants,
+      infowindow:""
     };
 
     this.initMap = this.initMap.bind(this);
+    this.populateInfoWindow = this.populateInfoWindow.bind(this);
   }
 
   componentDidMount() {
@@ -20,14 +22,18 @@ class App extends Component {
   }
 
   initMap() {
+    var self = this;
     var map = new window.google.maps.Map(document.getElementById("map"), {
       center: {lat: 33.993991, lng: -117.901344},
       zoom: 13,
       styles:mapStyles
     });
 
+    var largeInfoWindow = new window.google.maps.InfoWindow();
+
     this.setState({
-      map:map
+      map:map,
+      infowindow: largeInfoWindow
     });
 
     this.state.locations.map((location) => {
@@ -37,8 +43,23 @@ class App extends Component {
         title:location.name,
         animation: window.google.maps.Animation.DROP
       });
+
+      marker.addListener("click", function() {
+        self.populateInfoWindow(marker,largeInfoWindow);
+      });
     });
 
+  }
+
+  populateInfoWindow(marker,infowindow) {
+    if (infowindow.marker != marker) {
+      infowindow.marker = marker;
+      infowindow.setContent('<div>' + marker.title + '</div>');
+      infowindow.open(this.state.map, marker);
+      infowindow.addListener('closeclick',function(){
+        infowindow.setMarker = null;
+      });
+    }
   }
 
   render() {
