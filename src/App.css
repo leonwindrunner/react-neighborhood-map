@@ -1,3 +1,14 @@
 #map {
   height: 100vh;
 }
+
+/*
+	infoWindow
+*/
+.info-name {
+	color: red;
+}
+
+.info-addressDetail {
+	font-size: 16px;
+}
