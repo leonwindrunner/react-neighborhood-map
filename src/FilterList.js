@@ -19,7 +19,14 @@ class FilterList extends Component {
 
 	render() {
 		return (
-			<input type="text" placeholder="Filter Restaurants" onChange={this.filterRestaurants} />
+			<div>
+				<input type="text" placeholder="Filter Restaurants" onChange={this.filterRestaurants} />
+        <ul>
+          {this.props.locations.map((location) => (
+            <li>{location.name}</li>
+          ))}
+        </ul>
+			</div>
 		)
 	}
 }
