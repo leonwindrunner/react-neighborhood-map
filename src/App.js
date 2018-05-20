@@ -3,6 +3,7 @@ import './App.css';
 import scriptLoader from 'react-async-script-loader';
 import { mapStyles } from './mapStyles.js';
 import { restaurants } from './restaurants.js';
+import FilterList from './FilterList.js'
 
 class App extends Component {
   constructor(props) {
@@ -36,6 +37,8 @@ class App extends Component {
 
     var highlightedIcon = self.makeMarkerIcon('FFFF24');
 
+
+    var locations = [];
     this.state.locations.map((location) => {
       var marker = new window.google.maps.Marker({
         position: location.location,
@@ -46,7 +49,7 @@ class App extends Component {
       });
 
       marker.addListener("click", function() {
-        self.populateInfoWindow(marker,largeInfoWindow);
+        self.populateInfoWindow(marker, largeInfoWindow);
       });
 
       marker.addListener('mouseover', function() {
@@ -57,13 +60,18 @@ class App extends Component {
         this.setIcon(defaultIcon);
       });
 
-      bounds.extend(marker.position)
+      bounds.extend(marker.position);
+
+      location.marker = marker;
+
+      locations.push(location);
     });
     map.fitBounds(bounds);
 
     this.setState({
       map:map,
-      infowindow: largeInfoWindow
+      infowindow: largeInfoWindow,
+      locations: locations
     });
   }
 
@@ -71,8 +79,6 @@ class App extends Component {
     if (infowindow.marker != marker) {
       infowindow.marker = marker;
       infowindow.setContent('Loading data from Foursquare...');
-
-      var self = this;
 
       var clientId = "5JEUZASPQG4DDOIBHRH5YNMROSLJIHFR0SBNAFARDUEUTX4U";
       var clientSecret = "VDGBRS3G5ZBVG3EE0DQJLRZHGOGKS2143QGEPSKQBESURRBU";
@@ -135,8 +141,9 @@ class App extends Component {
 
   render() {
     return (
-      <div id="map">
-        Hello world!
+      <div>
+        <FilterList locations={this.state.locations}/>
+        <div id="map"></div>
       </div>
     );
   }
