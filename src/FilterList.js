@@ -17,10 +17,10 @@ class FilterList extends Component {
   }
 
   filterRestaurants(event) {
+    this.props.infowindow.close();
     this.props.locations.map((location) => {
       location.marker.setAnimation(null);
     })
-
   	var filterLocations = [];
     this.props.locations.map((location) => {
       if (location.name.toLowerCase().indexOf(event.target.value.toLowerCase()) >= 0) {

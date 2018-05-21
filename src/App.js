@@ -76,6 +76,7 @@ class App extends Component {
   }
 
   populateInfoWindow(marker) {
+    this.state.infowindow.close();
     this.state.locations.map((location) => {
       location.marker.setAnimation(null);
     })
@@ -150,7 +151,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <FilterList locations={this.state.locations} onPopulateInfoWindow={this.populateInfoWindow}/>
+        <FilterList locations={this.state.locations} infowindow={this.state.infowindow} onPopulateInfoWindow={this.populateInfoWindow}/>
         <div id="map"></div>
       </div>
     );
