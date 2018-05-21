@@ -30,6 +30,7 @@
 	width: 100%;
 	margin: auto;
 	position: absolute;
+	bottom: 0;
 	background-color: white;
 	z-index: 99;
 	opacity: 0.6;
