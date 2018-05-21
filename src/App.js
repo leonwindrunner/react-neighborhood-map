@@ -33,9 +33,9 @@ class App extends Component {
     var largeInfoWindow = new window.google.maps.InfoWindow();
     var bounds = new window.google.maps.LatLngBounds();
 
-    var defaultIcon = self.makeMarkerIcon('0091ff');
+    var defaultIcon = self.makeMarkerIcon('ff6666');
 
-    var highlightedIcon = self.makeMarkerIcon('FFFF24');
+    var highlightedIcon = self.makeMarkerIcon('ccc');
 
 
     var locations = [];
@@ -132,10 +132,10 @@ class App extends Component {
     var markerImage = new window.google.maps.MarkerImage(
       'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
       '|40|_|%E2%80%A2',
-      new window.google.maps.Size(21, 34),
+      new window.google.maps.Size(30, 50),
       new window.google.maps.Point(0, 0),
       new window.google.maps.Point(10, 34),
-      new window.google.maps.Size(21,34));
+      new window.google.maps.Size(30,50));
     return markerImage;
   }
 
