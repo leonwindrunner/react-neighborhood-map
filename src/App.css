@@ -1,14 +1,126 @@
+/*
+	map
+*/
 #map {
   height: 100vh;
 }
+
 
 /*
 	infoWindow
 */
 .info-name {
 	color: red;
+	font-size: 17px;
+}
+
+.info-address {
+	font-size: 15px;
 }
 
 .info-addressDetail {
-	font-size: 16px;
+	font-size: 14px;
+}
+
+
+/*
+	filter
+*/
+.filter-main {
+	width: 100%;
+	margin: auto;
+	position: absolute;
+	background-color: white;
+	z-index: 99;
+	opacity: 0.6;
+	height: 30vh;
+	overflow: auto;
+}
+
+.filter-main:hover {
+	opacity: 1;
+}
+
+.filter-main h1 {
+	color: red;
+	text-align: center;
+	font-size: 33px;
+	margin: 30px 0 10px 0;
+}
+
+.filter-input {
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+.filter-main label {
+	font-size: 20px;
+	margin-right: 20px;
+}
+
+.filter-main input {
+	width:200px;
+}
+
+.filter-list li {
+	margin: 10px 10px;
+	font-weight: bold;
+}
+
+
+/*
+	@media query min-width: 480px;
+*/
+@media screen and (min-width: 480px) {
+	.info-name {
+		font-size: 25px;
+	}
+
+	.info-address {
+		font-size: 20px;
+	}
+
+	.info-addressDetail {
+		font-size: 16px;
+	}
+
+	.filter-list {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+
+	.filter-list li {
+		width: 45%;
+	}
+}
+
+
+/*
+	@media query min-width: 640px;
+*/
+@media screen and (min-width: 640px) {
+	.filter-list {
+		width: 640px;
+		margin: auto;
+	}
+	.filter-main {
+		height: 25vh;
+	}
+}
+
+
+/*
+	@media query min-width: 1000px;
+*/
+@media screen and (min-width: 1000px) {
+	.filter-list {
+		width: 960px;
+		margin: auto;
+	}
+
+	.filter-list li {
+		width: 30%;
+	}
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Background from './bgimg.jpg';
 
 class FilterList extends Component {
   constructor(props) {
@@ -32,12 +33,21 @@ class FilterList extends Component {
   }
 
 	render() {
+    var sectionStyle = {
+      width: "100%",
+      backgroundImage: `url(${Background})`
+    };
+
 		return (
-			<div>
-				<input type="text" placeholder="Filter Restaurants" onChange={this.filterRestaurants} />
-        <ul>
+			<div className="filter-main" style={ sectionStyle }>
+        <h1>Restaurants Near me</h1>
+          <div className="filter-input">
+            <label>Search</label>
+            <input type="text" placeholder="Restaurant name" onChange={this.filterRestaurants} />
+          </div>
+        <ul className="filter-list">
           {this.state.filterLocations.map((location) => (
-            <li onClick={() => this.props.onPopulateInfoWindow(location.marker)}>{location.name}</li>
+            <li key={location.name} onClick={() => this.props.onPopulateInfoWindow(location.marker)}>{location.name}</li>
           ))}
         </ul>
 			</div>
