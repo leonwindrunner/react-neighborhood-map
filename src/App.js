@@ -85,6 +85,9 @@ class App extends Component {
     } else {
       marker.setAnimation(window.google.maps.Animation.BOUNCE);
     }
+
+    this.state.map.setCenter(marker.getPosition());
+
     this.state.infowindow.setContent('Loading data from Foursquare...');
 
     var self = this;
