@@ -76,6 +76,14 @@ class App extends Component {
   }
 
   populateInfoWindow(marker) {
+    this.state.locations.map((location) => {
+      location.marker.setAnimation(null);
+    })
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
+    } else {
+      marker.setAnimation(window.google.maps.Animation.BOUNCE);
+    }
     this.state.infowindow.setContent('Loading data from Foursquare...');
 
     var self = this;
