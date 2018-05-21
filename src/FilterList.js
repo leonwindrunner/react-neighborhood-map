@@ -37,7 +37,7 @@ class FilterList extends Component {
 				<input type="text" placeholder="Filter Restaurants" onChange={this.filterRestaurants} />
         <ul>
           {this.state.filterLocations.map((location) => (
-            <li>{location.name}</li>
+            <li onClick={() => this.props.onPopulateInfoWindow(location.marker)}>{location.name}</li>
           ))}
         </ul>
 			</div>

@@ -49,7 +49,7 @@ class App extends Component {
       });
 
       marker.addListener("click", function() {
-        self.populateInfoWindow(marker, largeInfoWindow);
+        self.populateInfoWindow(marker);
       });
 
       marker.addListener('mouseover', function() {
@@ -75,57 +75,57 @@ class App extends Component {
     });
   }
 
-  populateInfoWindow(marker,infowindow) {
-    if (infowindow.marker != marker) {
-      infowindow.marker = marker;
-      infowindow.setContent('Loading data from Foursquare...');
+  populateInfoWindow(marker) {
+    this.state.infowindow.setContent('Loading data from Foursquare...');
 
-      var clientId = "5JEUZASPQG4DDOIBHRH5YNMROSLJIHFR0SBNAFARDUEUTX4U";
-      var clientSecret = "VDGBRS3G5ZBVG3EE0DQJLRZHGOGKS2143QGEPSKQBESURRBU";
-      var url = "https://api.foursquare.com/v2/venues/search?client_id=" + clientId + "&client_secret=" + clientSecret + "&v=20130815&ll=" + marker.getPosition().lat() + "," + marker.getPosition().lng() + "&limit=1";
+    var self = this;
 
-      fetch(url)
-        .then(function(response) {
-          if (response.status !== 200) {
-            var errorContent = "Sorry Foursquare data can't be loaded";
-            infowindow.setContent(errorContent);
-            return;
+    var clientId = "5JEUZASPQG4DDOIBHRH5YNMROSLJIHFR0SBNAFARDUEUTX4U";
+    var clientSecret = "VDGBRS3G5ZBVG3EE0DQJLRZHGOGKS2143QGEPSKQBESURRBU";
+    var url = "https://api.foursquare.com/v2/venues/search?client_id=" + clientId + "&client_secret=" + clientSecret + "&v=20130815&ll=" + marker.getPosition().lat() + "," + marker.getPosition().lng() + "&limit=1";
+
+    fetch(url)
+      .then(function(response) {
+        if (response.status !== 200) {
+          var errorContent = "Sorry Foursquare data can't be loaded";
+          self.state.infowindow.setContent(errorContent);
+          return;
+        }
+
+        response.json().then(function(data) {
+          var restaurants_data = data.response.venues[0];
+
+          var name, address, id;
+          if(restaurants_data.name) {
+            name =  restaurants_data.name;
+          }
+          if(restaurants_data.location.formattedAddress[0]) {
+            address =  restaurants_data.location.formattedAddress[0];
+          }
+          if(restaurants_data.id) {
+            id =  restaurants_data.id;
           }
 
-          response.json().then(function(data) {
-            var restaurants_data = data.response.venues[0];
-
-            var name, address, id;
-            if(restaurants_data.name) {
-              name =  restaurants_data.name;
-            }
-            if(restaurants_data.location.formattedAddress[0]) {
-              address =  restaurants_data.location.formattedAddress[0];
-            }
-            if(restaurants_data.id) {
-              id =  restaurants_data.id;
-            }
-
-            var infoContent = `<h1 class="info-name"><strong>${name}</strong></h1>
-                               <hr>
-                               <h2 class="info-address">Address:</h2>
-                               <p class="info-addressDetail">${address}</p>
-                               <hr>
-                               <a class="info-readmore" href="https://foursquare.com/v/${id}" target="_blank">Read More on <strong>Foursquare Website</strong></a>
-                              `
-            infowindow.setContent(infoContent);
-          });
-        })
-        .catch(function(err) {
-          var errorContent = "Sorry Foursquare data can't be loaded";
-          infowindow.setContent(errorContent);
+          var infoContent = `<h1 class="info-name"><strong>${name}</strong></h1>
+                             <hr>
+                             <h2 class="info-address">Address:</h2>
+                             <p class="info-addressDetail">${address}</p>
+                             <hr>
+                             <a class="info-readmore" href="https://foursquare.com/v/${id}" target="_blank">Read More on <strong>Foursquare Website</strong></a>
+                            `
+          self.state.infowindow.setContent(infoContent);
         });
-
-      infowindow.open(this.state.map, marker);
-      infowindow.addListener('closeclick',function(){
-        infowindow.setMarker = null;
+      })
+      .catch(function(err) {
+        var errorContent = "Sorry Foursquare data can't be loaded";
+        self.state.infowindow.setContent(errorContent);
       });
-    }
+
+    this.state.infowindow.open(this.state.map, marker);
+
+    this.state.infowindow.addListener('closeclick',function(){
+      self.state.infowindow.setMarker = null;
+    });
   }
 
   makeMarkerIcon(markerColor) {
@@ -142,7 +142,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <FilterList locations={this.state.locations}/>
+        <FilterList locations={this.state.locations} onPopulateInfoWindow={this.populateInfoWindow}/>
         <div id="map"></div>
       </div>
     );
