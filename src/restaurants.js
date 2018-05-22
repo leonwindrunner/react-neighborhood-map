@@ -1,3 +1,4 @@
+//Restaurants' information
 export const restaurants = [
   {
     name: "MJ Cafe & Teahouse",

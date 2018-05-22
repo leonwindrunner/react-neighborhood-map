@@ -16,12 +16,18 @@ class FilterList extends Component {
     });
   }
 
+  //Filter Locations based on user input
   filterRestaurants(event) {
+    //Make sure other infowindow and markers animation close when input something
     this.props.infowindow.close();
     this.props.locations.map((location) => {
       location.marker.setAnimation(null);
     })
+
+    // Create a new blank array for the filtering locations.
   	var filterLocations = [];
+    //Filter locations
+    //Make locations visibile which match the user input, and others unvisible
     this.props.locations.map((location) => {
       if (location.name.toLowerCase().indexOf(event.target.value.toLowerCase()) >= 0) {
         location.marker.setVisible(true);
@@ -31,12 +37,15 @@ class FilterList extends Component {
       }
     });
 
+    //Set state for filter list use
     this.setState({
     	filterLocations: filterLocations
     });
   }
 
+  //Render fot FilterList
 	render() {
+    //Add a background image
     var sectionStyle = {
       width: "100%",
       backgroundImage: `url(${Background})`

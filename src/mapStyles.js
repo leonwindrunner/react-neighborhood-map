@@ -1,3 +1,4 @@
+//Google map styles
 export const mapStyles = [
   {
     featureType: 'water',
