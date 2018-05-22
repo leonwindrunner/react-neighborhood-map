@@ -46,12 +46,25 @@ class FilterList extends Component {
 			<div className="filter-main" style={ sectionStyle }>
         <h1>Restaurants Near me</h1>
           <div className="filter-input">
-            <label>Search</label>
-            <input type="text" placeholder="Restaurant name" onChange={this.filterRestaurants} />
+            <label>Search</label> 
+            <input 
+              role="search" 
+              aria-labelledby="filter" 
+              type="text" 
+              placeholder="Restaurant name" 
+              onChange={this.filterRestaurants} 
+            />
           </div>
         <ul className="filter-list">
           {this.state.filterLocations.map((location) => (
-            <li key={location.name} onClick={() => this.props.onPopulateInfoWindow(location.marker)}>{location.name}</li>
+            <li 
+              key={location.name} 
+              role="button"
+              tabIndex="0"              
+              onClick={() => this.props.onPopulateInfoWindow(location.marker)}
+            >
+              {location.name}
+            </li>
           ))}
         </ul>
 			</div>
