@@ -181,9 +181,9 @@ class App extends Component {
   //Render for App
   render() {
     return (
-      <div>
+      <div role="main">
         <FilterList locations={this.state.locations} infowindow={this.state.infowindow} onPopulateInfoWindow={this.populateInfoWindow}/>
-        <div id="map"></div>
+        <div id="map" role="application"></div>
       </div>
     );
   }

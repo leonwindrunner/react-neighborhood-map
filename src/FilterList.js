@@ -52,7 +52,7 @@ class FilterList extends Component {
     };
 
 		return (
-			<div className="filter-main" style={ sectionStyle }>
+			<div className="filter-main" role="filter box" style={ sectionStyle }>
         <h1>Restaurants Near me</h1>
           <div className="filter-input">
             <label>Search</label> 
